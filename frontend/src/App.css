@@ -1,0 +1,12 @@
+body {
+    background-color: #002B5B;
+  }
+  
+  .card {
+    background-color: #E4DCCF;
+  }
+
+.custombtn {
+  min-height: 110px;
+  max-height: auto;
+}
