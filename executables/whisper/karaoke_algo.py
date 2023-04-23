@@ -1,4 +1,5 @@
 import srt
+import Levenshtein
 import enchant
 global syllables
 global to_be_removed
@@ -190,7 +191,6 @@ for slice in transcribed: # was transcribed
 
 # get perfet lyric matches between estimated and real
 perfects = []
-
 ranges = []
 missed = []
 dups = []

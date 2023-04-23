@@ -2,6 +2,7 @@ from flask import Flask, request, send_file
 from flask.helpers import send_from_directory
 from flask_cors import CORS
 import json
+import ffmpeg
 import subprocess
 from yt_dlp import YoutubeDL
 import os
@@ -38,21 +39,18 @@ def script():
         os.chdir(songs + "\\" + title)
         ydl.download(URLS)
     
+    
     audio_file = os.path.join(songs, title, "audio.wav")
     video_file = os.path.join(songs, title, filename)
 
-    cmd = [
-        execs + "/ffmpeg.exe",
-        "-y",
-        "-i",
-        video_file,
-        "-map",
-        "0:a",
-        "-y",
-        audio_file,
-    ]
-
-    subprocess.call(cmd)
+    (
+        ffmpeg
+        .input(video_file)
+        .audio
+        .output(audio_file, format="wav", acodec="pcm_s16le", ar="44100", ac="2")
+        .overwrite_output()
+        .run()
+    )
 
     #Spleeter separates lyrics from vocals
     from spleeter.separator import Separator
@@ -71,33 +69,46 @@ def script():
     with open(os.path.join(execs, 'whisper', 'lyrics.txt'), 'w', encoding='utf-8') as f:
         f.write(lyrics)
 
-    # WHISPER
+        # WHISPER
     # process sample rate to 16k for whisper input
-    command = (execs + "/ffmpeg.exe -y -i " + whisper + "/vocals.wav -ar 16000 "
-               + whisper + "/vocals16k.wav")
-    print(command)
-    subprocess.call(command, shell=True)
+    input_file = whisper + "/vocals.wav"
+    output_file = whisper + "/vocals16k.wav"
+
+    # Create an FFmpeg process and set its options
+    (
+        ffmpeg
+        .input(input_file)
+        .output(output_file, ar=16000)  
+        .overwrite_output()
+        .run()
+    )
 
     os.chdir(whisper)
-
+    
     command = ("main.exe -m large.bin -f vocals16k.wav -ml 1 -l fi -t 6 -osrt --prompt lyrics.txt")
     subprocess.call(command, shell=True)
-   
 
     command = ["py", "karaoke_algo.py"]
     subprocess.call(command)
 
     print(command)
+    
 
     print(f'"{title.title()}"')
     os.chdir(songs)
     os.chdir(title)
     print("DIRECTORY: ", os.getcwd())
 
+    filename = f'{filename}'
+    video = ffmpeg.input(filename)
+    audio = "audio.wav"
+    subtitles = "../../executables/whisper/subs.srt"
+
+    output = ffmpeg.concat(video.filter("subtitles", subtitles), ffmpeg.input(audio), v=1, a=1).output("out.webm")
+
+    ffmpeg.run(output, overwrite_output=True)
+    
     filename = f'"{filename}"'
-    command = ("ffmpeg -y -i " + filename + " -vf subtitles=../../executables/whisper/subs.srt -c:a copy " + "out.webm")
-    print(command)
-    subprocess.call(command, shell=True)
     command = ("del " + filename)
     subprocess.call(command, shell=True)
     command = ("move out.webm " + filename)
