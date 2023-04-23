@@ -1,5 +1,4 @@
 import srt
-import Levenshtein
 import enchant
 global syllables
 global to_be_removed
