@@ -131,7 +131,8 @@ def serve_video(song_name):
 def serve_name():
     song_names = []
     for file_name in os.listdir(songs):
-        song_names.append(file_name)
+        if(file_name!=".gitkeep"):
+            song_names.append(file_name)
     return json.dumps({"song_names": song_names})
 
 #Backend defined to use production build

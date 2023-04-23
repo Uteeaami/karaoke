@@ -4,22 +4,24 @@ This is a karaoke app that separates the vocals from a song and displays lyrics 
 
 ## Prerequisites
 
-- Python: 3.10
+- Python: 3.10.x
 
 ## Getting started
 
-Clone the repository:
-- git clone https://github.com/<username>/karaoke.git
-
 Install required packages from requirements.txt:
-- pip install -r requirements.txt
+- (`pip install -r requirements.txt`)
 
-Due to some collisions with Spleeter and Flask, please install the following versions of Spleeter, Click and Typer packages:
-- pip install spleeter
-- pip install click==8.0.4
-- pip install typer==0.6.1
+Or by using venv:
+- (`py -3.10 -m venv myenv`)
+- (`myenv/Scripts/activate`)
+- (`pip install -r requirements.txt`)
 
-Download the whisper model from:
+Due to some collisions with Spleeter and Flask, please install spleeter and the following versions of Click and Typer packages:
+- (`pip install spleeter`)
+- (`pip install click==8.0.4`)
+- (`pip install typer==0.6.1`)
+
+Download the whisper model and dependables:
 
 - https://huggingface.co/ggerganov/whisper.cpp/blob/main/ggml-large-v1.bin (rename large.bin)
 - https://github.com/ggerganov/whisper.cpp/releases/download/v1.2.1/whisper-bin-x64.zip
