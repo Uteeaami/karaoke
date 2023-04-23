@@ -9,17 +9,24 @@ This is a karaoke app that separates the vocals from a song and displays lyrics 
 ## Getting started
 
 Install required packages from requirements.txt:
-- (`pip install -r requirements.txt`)
+
+`pip install -r requirements.txt`
 
 Or by using venv:
-- (`py -3.10 -m venv myenv`)
-- (`myenv/Scripts/activate`)
-- (`pip install -r requirements.txt`)
+
+`py -3.10 -m venv myenv`
+
+`myenv/Scripts/activate`
+
+`pip install -r requirements.txt`
 
 Due to some collisions with Spleeter and Flask, please install spleeter and the following versions of Click and Typer packages:
-- (`pip install spleeter`)
-- (`pip install click==8.0.4`)
-- (`pip install typer==0.6.1`)
+
+`pip install spleeter`
+
+`pip install click==8.0.4`
+
+`pip install typer==0.6.1`
 
 Download the whisper model and dependables:
 
