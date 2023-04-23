@@ -80,7 +80,7 @@ function App() {
               <select className="form-control" id="lang" value={lang} onChange={(e) => setLang(e.target.value)}>
                 <option value="">Select a language</option>
                 <option value="fi">Finnish</option>
-                <option value="eng">English</option>
+                <option value="en">English</option>
               </select>
               </div>
               <div className="mb-3">

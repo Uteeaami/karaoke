@@ -1,3 +1,12 @@
 node_modules
 environment
 __pycache__
+ffmpeg.exe
+SDL2.dll
+bench.exe
+command.exe
+large.bin
+main.exe
+stream.exe
+talk.exe
+whisper.dll
