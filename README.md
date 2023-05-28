@@ -1,6 +1,8 @@
 # Karaoke
 
-This is a karaoke app that separates the vocals from a song and displays lyrics in sync with the music.
+This is a karaoke app that separates the vocals from a song and displays lyrics in sync with the music. 
+
+**Public until 12.6.2023**
 
 ## Prerequisites
 
